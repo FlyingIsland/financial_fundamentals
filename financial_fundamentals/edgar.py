@@ -60,10 +60,20 @@ def _get_filing_from_document_page(document_page_url):
     period_of_report_elem = filing_page.find('div', text='Filing Date')
     filing_date = period_of_report_elem.findNext('div', {'class' : 'info'}).text
     filing_date = datetime.date(*map(int, filing_date.split('-')))
-    type_tds = filing_page.findAll('td', text='EX-101.INS')
-    for type_td in type_tds:
+    type_tds = []
+    text_to_find = ['EX-101.INS', ' XBRL INSTANCE DOCUMENT']
+    for each_text in text_to_find:
+        
+        type_td_found = filing_page.findAll('td', text=each_text)
+        if(type_td_found):
+            tr_d = type_td_found[0].findPrevious('tr')
+            if(tr_d):
+                type_tds.append(tr_d)
+    for type_td in list(set(type_tds)):
         try:
-            xbrl_link = type_td.findPrevious('a', text=re.compile('\.xml$')).parent['href']
+            
+            # xbrl_link = type_td.findPrevious('a', text=re.compile('\.xml$')).parent['href']
+            xbrl_link = type_td.find('a', text=re.compile('\.xml$')).parent['href']
         except AttributeError:
             continue
         else:
