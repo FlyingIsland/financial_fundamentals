@@ -44,7 +44,7 @@ setup(name='FinancialFundamentals',
 	'pandas',
 	'xmltodict',
 	'blist',
-	'python-dateutil==1.5',
+	'python-dateutil',
 	'vector_cache',
 	],
       dependency_links=[
