@@ -45,7 +45,6 @@ setup(name='FinancialFundamentals',
 	'xmltodict',
 	'blist',
 	'python-dateutil',
-	'vector_cache',
 	],
       dependency_links=[
 	'http://github.com/andrewkittredge/vector_cache/tarball/master#egg=vector_cache',
